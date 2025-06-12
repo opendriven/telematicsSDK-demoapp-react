@@ -3,26 +3,34 @@ package com.reactnativetelematicssdk;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 
+import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.raxeltelematics.v2.sdk.TrackingApi;
 import com.raxeltelematics.v2.sdk.Settings;
 import com.raxeltelematics.v2.sdk.utils.permissions.PermissionsWizardActivity;
+import com.raxeltelematics.v2.sdk.LocationListener;
 public class TelematicsSdkModule extends ReactContextBaseJavaModule implements ActivityEventListener {
   public static final String NAME = "TelematicsSdk";
   private static final String TAG = "TelematicsSdkModule";
+  private final String LOCATION_CHANGED_EVENT_NAME = "onLocationChanged";
 
   private Promise permissionsPromise = null;
 
@@ -49,6 +57,7 @@ public class TelematicsSdkModule extends ReactContextBaseJavaModule implements A
       Log.d(TAG, "Tracking api is initialized");
     }
     api.addTagsProcessingCallback(tagsProcessor);
+    startLocationListener();
     Log.d(TAG, "Tag callback is set");
   }
 
@@ -211,6 +220,44 @@ public class TelematicsSdkModule extends ReactContextBaseJavaModule implements A
 
   @Override
   public void onNewIntent(Intent intent) {
+
+  }
+
+  public void startLocationListener() {
+    LocationListener callback = new LocationListener() {
+
+      @Override
+      public void onLocationChanged(@Nullable Location location) {
+        WritableMap params = Arguments.createMap();
+        params.putDouble("latitude", location != null ? location.getLatitude() : 0);
+        params.putDouble("longitude", location != null ? location.getLongitude() : 0);
+        params.putDouble("altitude", location != null ? location.getAltitude() : 0);
+        params.putDouble("speed", location != null ? location.getSpeed() : 0);
+        params.putDouble("timestamp", location != null ? location.getTime() : 0);
+        sendEvent(getReactApplicationContext(), LOCATION_CHANGED_EVENT_NAME, params);
+      }
+    };
+
+    try {
+      api.setLocationListener(callback);
+    } catch (Exception e) {
+      Log.e(TAG, "Error setting location listener", e);
+    }
+  }
+
+  private void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
+      reactContext
+          .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+          .emit(eventName, params);
+  }
+
+  @ReactMethod
+  public void addListener(String eventName) {
+
+  }
+
+  @ReactMethod
+  public void removeListeners(Integer count) {
 
   }
 }
