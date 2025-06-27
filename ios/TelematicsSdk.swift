@@ -185,21 +185,20 @@ class TelematicsSdk: RCTEventEmitter, RPLowPowerModeDelegate, RPLocationDelegate
     
     // Notify when listeners are added
     @objc override func startObserving() {
-        //hasListeners = true
+        hasListeners = true
         // Set up any observers or listeners in your SDK here
     }
     
     // Notify when listeners are removed
     @objc override func stopObserving() {
-        //hasListeners = false
+        hasListeners = false
         // Remove any observers or listeners from your SDK here
     }
 
     // Helper method to send events if there are listeners
     private func sendEventIfListening(eventName: String, body: Any?) {
-        // if self.hasListeners {
-        //     self.sendEvent(withName: eventName, body: body)
-        // }
-        self.sendEvent(withName: eventName, body: body)
+        if self.hasListeners {
+            self.sendEvent(withName: eventName, body: body)
+        }
     }
 }
