@@ -1,14 +1,14 @@
 import * as React from 'react';
 
 import {
+  Alert,
+  NativeEventEmitter,
   SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
-  NativeEventEmitter,
-  Alert,
+  View
 } from 'react-native';
 import TelematicsSdk from 'react-native-telematics';
 
@@ -27,9 +27,16 @@ export default function App() {
     const emitter = eventEmitter.addListener('onLowPowerModeEnabled', () => {
       console.log('Low power enabled');
     });
+    const locationEmitter = eventEmitter.addListener(
+      'onLocationChanged',
+      (location) => {
+        console.log('Location changed:', location);
+      }
+    );
 
     return () => {
       emitter.remove();
+      locationEmitter.remove();
     };
   }, []);
 
