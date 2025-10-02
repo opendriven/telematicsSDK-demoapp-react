@@ -7,9 +7,9 @@ buildscript {
         }
 
         dependencies {
-          classpath("com.android.tools.build:gradle")
-          classpath("com.facebook.react:react-native-gradle-plugin")
-          classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+                    classpath("com.android.tools.build:gradle:8.11.0")
+                    classpath("com.facebook.react:react-native-gradle-plugin:0.81.4")
+                    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.20")
         }
     }
 }
@@ -22,11 +22,11 @@ def safeExtGet(prop, fallback) {
 
 android {
   namespace "com.reactnativetelematicssdk"
-    compileSdkVersion safeExtGet('TelematicsSdk_compileSdkVersion', 35)
-    buildToolsVersion safeExtGet('TelematicsSdk_buildToolsVersion', '35.0.0')
+    compileSdkVersion safeExtGet('TelematicsSdk_compileSdkVersion', 36)
+    buildToolsVersion safeExtGet('TelematicsSdk_buildToolsVersion', '36.0.0')
     defaultConfig {
         minSdkVersion safeExtGet('TelematicsSdk_minSdkVersion', 24)
-        targetSdkVersion safeExtGet('TelematicsSdk_targetSdkVersion', 34)
+        targetSdkVersion safeExtGet('TelematicsSdk_targetSdkVersion', 36)
         versionCode 3
         versionName "1.0"
         }
@@ -68,6 +68,6 @@ rootProject.allprojects {
 
 dependencies {
     //noinspection GradleDynamicVersion
-    implementation("com.facebook.react:react-android:0.77.1")
+    implementation("com.facebook.react:react-android:0.81.4")
     implementation("com.telematicssdk:tracking:3.0.1")  // Telematics sdk
 }
