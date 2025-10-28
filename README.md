@@ -24,6 +24,9 @@ TelematicsSdkExample application is located in example directory
 yarn
 ```
 
+Note: This repository has been upgraded to React Native 0.81.4 and React 19.1.0.
+After pulling changes run `yarn` (or `npm install`) in the root and `cd example && npm install` then for iOS run `cd example/ios && pod install` locally.
+
 ### To run an Android example
 
 ```sh
