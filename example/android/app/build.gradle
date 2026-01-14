@@ -88,6 +88,13 @@ android {
         versionCode 11
         versionName "1.0"
     }
+    
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
@@ -112,6 +119,7 @@ android {
     packagingOptions {
         exclude 'META-INF/INDEX.LIST'
         exclude 'META-INF/io.netty.versions.properties'
+        exclude 'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
     }
 
 }
@@ -122,6 +130,8 @@ dependencies {
     implementation("com.facebook.react:react-android")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 
 
     if (hermesEnabled.toBoolean()) {
