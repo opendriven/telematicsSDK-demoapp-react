@@ -128,6 +128,20 @@ export default function App() {
     }
   };
 
+  const checkPermissionsStatus = async () => {
+    try {
+      const isGranted = await TelematicsSdk.areAllRequiredPermissionsGranted();
+      Alert.alert(
+        'Permissions Status',
+        isGranted ? 'All permissions are granted' : 'Not all permissions are granted',
+        [{ text: 'OK' }]
+      );
+    } catch (error: any) {
+      Alert.alert('Error', error.message, [{ text: 'OK' }]);
+      console.log(error);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {sdkTag === '' ? (
@@ -154,6 +168,9 @@ export default function App() {
       />
       <Text style={styles.tagText}>{sdkTag}</Text>
       <View>
+        <TouchableOpacity onPress={checkPermissionsStatus} style={styles.button}>
+          <Text>Check Permissions Status</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={enableSDK} style={styles.button}>
           <Text>Enable SDK</Text>
         </TouchableOpacity>

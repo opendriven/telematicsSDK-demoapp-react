@@ -13,6 +13,7 @@ interface TelematicsSdkType {
   initialize: () => Promise<void>;
 
   requestPermissions: () => Promise<boolean>;
+  areAllRequiredPermissionsGranted: () => Promise<boolean>;
   enable: (token: string) => Promise<boolean>;
   getStatus: () => Promise<boolean>;
   getDeviceToken: () => Promise<string>;

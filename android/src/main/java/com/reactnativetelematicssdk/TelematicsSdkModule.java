@@ -104,6 +104,11 @@ public class TelematicsSdkModule extends ReactContextBaseJavaModule implements A
     }
   }
 
+  @ReactMethod
+  public void areAllRequiredPermissionsGranted(Promise promise) {
+    promise.resolve(api.areAllRequiredPermissionsGranted());
+  }
+
   // API Status
   @ReactMethod
   public void getStatus(Promise promise) {
