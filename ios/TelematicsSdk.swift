@@ -41,6 +41,11 @@ class TelematicsSdk: RCTEventEmitter, RPLowPowerModeDelegate, RPLocationDelegate
         }
     }
     
+    @objc(areAllRequiredPermissionsGranted:rejecter:)
+    func areAllRequiredPermissionsGranted(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
+        resolve(RPEntry.instance.isAllRequiredPermissionsGranted())
+    }
+    
     // Enabling and disabling SDK
     @objc(enable:resolver:rejecter:)
     func enable(_ token: NSString, resolver resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) {
