@@ -120,6 +120,13 @@ interface TelematicsSdkType {
    */
   isAllRequiredPermissionsAndSensorsGranted: () => Promise<boolean>;
 
+  /**
+   * Checks whether all required permissions are granted (without checking sensor availability).
+   *
+   * Unlike {@link isAllRequiredPermissionsAndSensorsGranted}, this only checks permission state.
+   */
+  areAllRequiredPermissionsGranted: () => Promise<boolean>;
+
   /** Returns whether the native SDK is currently enabled. */
   isSdkEnabled: () => Promise<boolean>;
 
