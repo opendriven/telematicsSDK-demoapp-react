@@ -138,6 +138,19 @@ export default function App() {
     await TelematicsSdk.showPermissionWizard(false, false);
   };
 
+  const checkPermissionsStatus = async () => {
+    try {
+      const isGranted = await TelematicsSdk.areAllRequiredPermissionsGranted();
+      showInfoAlert(
+        isGranted
+          ? 'All permissions are granted'
+          : 'Not all permissions are granted'
+      );
+    } catch (e: any) {
+      showErrorAlert(e);
+    }
+  };
+
   const checkInitialized = async () => {
     try {
       const v = await TelematicsSdk.isInitialized()
@@ -533,6 +546,7 @@ export default function App() {
             <Text style={styles.tagText}>{sdkTag}</Text>
             <View>
               <Button text="Enable SDK" onPress={enableSDK} variant="success" disabled={isLoading} />
+              <Button text="Check Permissions Status" onPress={checkPermissionsStatus} variant="secondary" />
               <Button text="Add test tag" onPress={setTag} variant="secondary" />
               <Button text="Get all tags" onPress={getTags} variant="primary" />
               <Button text="Remove test tag" onPress={removeTag} variant="secondary" />
