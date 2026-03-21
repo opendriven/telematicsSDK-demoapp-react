@@ -468,3 +468,22 @@ await TelematicsSdk.requestIOSMotionPermission();
 await TelematicsSdk.setAndroidAutoStartEnabled({ enable: true, permanent: true });
 const autoStartEnabled = await TelematicsSdk.isAndroidAutoStartEnabled();
 ```
+
+## Fork Additions (opendriven)
+
+This fork adds the following on top of the upstream release:
+
+### `areAllRequiredPermissionsGranted()`
+
+Checks if all required permissions are granted without showing the permission wizard dialog. Returns `Promise<boolean>`.
+
+```js
+const isGranted = await TelematicsSdk.areAllRequiredPermissionsGranted();
+```
+
+Unlike `isAllRequiredPermissionsAndSensorsGranted()`, this method checks permissions only (not sensor availability).
+
+### Android Defaults
+
+- ELM327 (Bluetooth) recording: **disabled** by default
+- Accident detection: **disabled** by default (can be enabled via `enableAccidents()`)
