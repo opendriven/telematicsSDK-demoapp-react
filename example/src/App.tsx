@@ -2,25 +2,25 @@ import React, { useEffect, useState } from 'react';
 
 import {
   Alert,
+  Keyboard,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
-  Keyboard,
-  View,
-  Platform
+  View
 } from 'react-native';
 
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import TelematicsSdk, {
   AccidentDetectionSensitivity,
   ApiLanguage,
-  addOnLowPowerModeListener,
   addOnLocationChangedListener,
-  addOnTrackingStateChangedListener,
-  addOnWrongAccuracyAuthorizationListener,
+  addOnLowPowerModeListener,
   addOnRtldColectedData,
   addOnSpeedViolationListener,
+  addOnTrackingStateChangedListener,
+  addOnWrongAccuracyAuthorizationListener,
 } from 'react-native-telematics';
 import { Button, Input } from './components';
 import { ClearButton } from './components/ClearButton';
@@ -46,6 +46,15 @@ export default function App() {
     TelematicsSdk.initialize();
     const checkPermissions = async () => {
       const isGranted = await TelematicsSdk.showPermissionWizard(false, false);
+      Alert.alert(
+        'Permissions',
+        isGranted
+          ? 'All required permissions are granted. You can enable the SDK now.'
+          : 'Required permissions are missing. Please grant all permissions to use the SDK.',
+        [{ text: 'OK', style: 'default' }],
+        { cancelable: true }
+      );
+      console.log('Permissions granted:', isGranted);
       setIsPermissionsGranted(isGranted);
     };
     checkPermissions();
