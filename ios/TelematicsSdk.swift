@@ -346,7 +346,6 @@ class TelematicsSdk: RCTEventEmitter {
       RPEntry.instance.apiLanguage = .spanish
     default:
       RPEntry.instance.apiLanguage = .english
-      return
     }
     resolve(nil)
   }
