@@ -27,7 +27,7 @@ RCT_EXTERN_METHOD(isAllRequiredPermissionsAndSensorsGranted:
                   (RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(areAllRequiredPermissionsGranted:
+RCT_EXTERN_METHOD(isAllRequiredPermissionsGranted:
                   (RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 

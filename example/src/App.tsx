@@ -149,8 +149,8 @@ export default function App() {
 
   const checkRequiredPermissions = async () => {
     try {
-      const v = await TelematicsSdk.areAllRequiredPermissionsGranted();
-      showInfoAlert(`areAllRequiredPermissionsGranted: ${v}`);
+      const v = await TelematicsSdk.isAllRequiredPermissionsGranted();
+      showInfoAlert(`isAllRequiredPermissionsGranted: ${v}`);
     } catch (e: any) {
       showErrorAlert(e);
     }

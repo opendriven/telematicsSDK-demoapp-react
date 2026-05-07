@@ -92,8 +92,8 @@ class TelematicsSdk: RCTEventEmitter {
     resolve(RPEntry.instance.isAllRequiredPermissionsGranted())
   }
 
-  @objc(areAllRequiredPermissionsGranted:rejecter:)
-  func areAllRequiredPermissionsGranted(
+  @objc(isAllRequiredPermissionsGranted:rejecter:)
+  func isAllRequiredPermissionsGranted(
     _ resolve: @escaping RCTPromiseResolveBlock,
     rejecter reject: @escaping RCTPromiseRejectBlock
   ) {
