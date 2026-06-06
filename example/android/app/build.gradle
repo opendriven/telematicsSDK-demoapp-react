@@ -88,19 +88,25 @@ android {
         versionCode 11
         versionName "1.0"
     }
-    
+
     compileOptions {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    
+
     signingConfigs {
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
+        }
+        release {
+            storeFile file('demo.keystore')
+            storePassword 'password'
+            keyAlias 'demo'
+            keyPassword 'password'
         }
     }
     buildTypes {
@@ -110,18 +116,30 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
-            minifyEnabled enableProguardInReleaseBuilds
+            signingConfig signingConfigs.release
+            shrinkResources false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
 
-    packagingOptions {
-        exclude 'META-INF/INDEX.LIST'
-        exclude 'META-INF/io.netty.versions.properties'
-        exclude 'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
+    packaging {
+        resources {
+            excludes += [
+                'META-INF/INDEX.LIST',
+                'META-INF/io.netty.versions.properties',
+                'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
+            ]
+        }
     }
 
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.jetbrains.kotlin:kotlin-stdlib:1.9.24'
+        force 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24'
+    }
 }
 
 dependencies {
@@ -129,9 +147,9 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation("com.facebook.react:react-android")
 
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.24"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
 
 
     if (hermesEnabled.toBoolean()) {

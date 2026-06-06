@@ -1,6 +1,6 @@
 {
   "name": "react-native-telematics",
-  "version": "1.0.18",
+  "version": "2.0.1",
   "description": "React Native wrapper for Telematics SDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -36,13 +36,16 @@
     "ios",
     "android"
   ],
-  "repository": "https://github.com/Mobile-Telematics/telematicsSDK-demoapp-react",
-  "author": "",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mobile-Telematics/telematicsSDK-demoapp-react.git"
+  },
+  "author": "DAMOOV PTE.LTD. <admin@damoov.com> (https://damoov.com)",
+  "license": "SEE LICENSE IN LICENSE",
   "bugs": {
     "url": "https://github.com/Mobile-Telematics/telematicsSDK-demoapp-react/issues"
   },
-  "homepage": "https://github.com/Mobile-Telematics/telematicsSDK-demoap` p-react#readme",
+  "homepage": "https://damoov.com",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
